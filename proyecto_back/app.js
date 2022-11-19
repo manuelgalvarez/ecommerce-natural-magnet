@@ -12,6 +12,9 @@ var usuariosRouter = require('./routes/usuarios.router');
 // Declarar el archivo auth
 var auth = require('./auth/main_auth');
 
+// Declarar cors
+var cors = require('cors');
+
 //Declarar el archivo de empleados.router
 var empleadosRouter = require('./routes/empleados.router');
 var productosRouter = require('./routes/productos.router');
@@ -24,6 +27,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Usar Cors
+app.use(cors());
 
 // Establecer conexión con mongoDB
 database.mongoConnect();
