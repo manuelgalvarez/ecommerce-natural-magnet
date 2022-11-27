@@ -1,10 +1,9 @@
 import React from "react";
-import { request } from "../helper/helper";
-import { Container, Row} from "react-bootstrap";
-import DataGrid from '../grid/grid';
-
-//Import los estilos css
-import "./empleados.css";
+import { Container, Row } from "react-bootstrap";
+import { request } from "../../helper/helper";
+import DataGrid from "../../grid/grid";
+import Loading from "../../loading/loading";
+import "../empleados.css";
 
 const columns = [
   {
@@ -42,7 +41,11 @@ export default class EmpleadosBuscar extends React.Component {
   
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      loading: false,
+      idEmpleado: null,
+    };
+    this.onClickEditButton = this.onClickEditButton.bind(this);
   }
 
   componentDidMount() {
@@ -56,22 +59,30 @@ export default class EmpleadosBuscar extends React.Component {
       });
   }
 
-  render() {
+  onClickEditButton(row){
+    this.props.setIdEmpleado(row._id);
+    this.props.changeTab('editar');
+  }
 
+  render() {
     return (
       <Container id="empleados-buscar-container">
         
+        <Loading show={this.state.Loading}/>
+
         <Row>
           <h2>Buscar empleados</h2>
         </Row>
-
+        
         <Row>
-          <DataGrid url="/empleados" columns={ columns }/>
+          <DataGrid url="/empleados" 
+            columns={ columns } 
+            showEditButton={true}
+            onClickEditButton={this.onClickEditButton}
+          />
         </Row>
 
       </Container>
     );
-
   }
-
 }
