@@ -1,5 +1,7 @@
 import React from 'react';
 import {Container, Nav, Navbar, Dropdown, DropdownButton, Row} from 'react-bootstrap';
+import Cookies from 'universal-cookie';
+
 //Importar estilos css del navbar
 import './navbar.css';
 
@@ -7,11 +9,18 @@ import './navbar.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserSecret } from '@fortawesome/free-solid-svg-icons';
 
+const cookies = new Cookies();
+
 export default class menu extends React.Component {
     
     constructor(props) {
         super(props);
         this.state = {};
+    }
+
+    Logout() {
+        cookies.remove("_s");
+        window.location.reload();
     }
 
     render() {    
@@ -41,7 +50,7 @@ export default class menu extends React.Component {
                                 <Row>Usuario#</Row> 
                             </Dropdown.Header>
                             <Dropdown.Divider></Dropdown.Divider>
-                            <Dropdown.Item href=" ">Cerrar sesión</Dropdown.Item>
+                            <Dropdown.Item onClick={() => this.Logout()}>Cerrar sesión</Dropdown.Item>
                         </DropdownButton>
 
                     </Navbar.Collapse>

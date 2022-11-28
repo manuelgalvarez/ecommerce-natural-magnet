@@ -60,4 +60,13 @@ export const request = {
         });
     },
 
+    delete: function (services) {
+        let token = renovarSesion();
+        return axios.delete(`${APIHOST}${services}`,  {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          }
+        })
+    },
+
 };
